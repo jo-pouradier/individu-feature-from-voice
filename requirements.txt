@@ -1,3 +1,5 @@
 pydub==0.25.1
 numpy
 matplotlib
+librosa
+scipy
