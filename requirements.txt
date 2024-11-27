@@ -4,5 +4,6 @@ matplotlib
 librosa
 scipy
 pandas
+seaborn
 scikit-learn
 IPython
