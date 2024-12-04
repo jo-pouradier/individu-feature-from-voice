@@ -1,2 +1,6 @@
 fr/
 .venv/
+*.png
+*.mp3
+*.wav
+*.pyc

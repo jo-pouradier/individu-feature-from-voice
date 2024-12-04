@@ -204,6 +204,19 @@ class PreprocessingPydub:
         return clip
 
 
+    def change_duration(self, clip: AudioSegment, duration: int = 10) -> AudioSegment:
+        # set duration to 10 secondes
+        # check audio duration
+        duration_in_seconds = len(clip)/1000
+        if len(clip)/1000 > duration:
+            clip = clip[:duration*1000]
+        else:
+            silence_duration = (duration - duration_in_seconds) * 1000  # Convert to milliseconds
+            silence = AudioSegment.silent(silence_duration)
+            clip = clip + silence
+        return clip
+
+
     def get_audio_data_pydub(self, path):
         """
         Get the audio data from the audio file using pydub
