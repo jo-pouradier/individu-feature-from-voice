@@ -142,10 +142,27 @@ class PreprocessingPydub:
         self.samples_path = samples_path # Path to folder with audio files
         self.processed_path = processed_path # Path to folder to save processed audio files
         
+    def get_audio_files(self, path, extension:str = ".mp3"):
+        """
+        Get all the audio files in the given path
+        :param path: Path to the folder containing the audio files
+        :return: List of audio files
+        """
+        audio_files = []
+        for file in os.listdir(path):
+            if file.endswith(extension):
+                audio_files.append(file)
+        return audio_files
+
 
     def mp3_to_wav(self, clip_name, samples_path) -> AudioSegment:
         clip_name = clip_name.split('.')[0]
         clip = AudioSegment.from_mp3(os.path.join(samples_path, f'{clip_name}.mp3'))
+        return clip
+    
+    def wav_to_mp3(self, clip_name, samples_path) -> AudioSegment:
+        clip_name = clip_name.split('.')[0]
+        clip = AudioSegment.from_wav(os.path.join(samples_path, f'{clip_name}.wav'))
         return clip
     
     def normalize_frequency(self, clip: AudioSegment) -> AudioSegment:
@@ -161,15 +178,21 @@ class PreprocessingPydub:
         clip = clip.apply_gain(diff)
         return clip
     
-    def normalize_sample(self, clip: AudioSegment | str, base_clip: AudioSegment | str) -> AudioSegment:
+    def normalize_sample(self, clip: AudioSegment | str, base_clip: AudioSegment | str, extenstion:str = "wav") -> AudioSegment:
         if isinstance(clip, str):
             clip = clip.split('.')[0]
-            clip = AudioSegment.from_wav(os.path.join(self.samples_path, f'{clip}.wav'))
+            clip = AudioSegment.from_wav(os.path.join(self.samples_path, f'{clip}.{extenstion}'))
         if isinstance(base_clip, str):
             base_clip = base_clip.split('.')[0]
-            base_clip = AudioSegment.from_wav(os.path.join(self.samples_path, f'{base_clip}.wav'))
+            base_clip = AudioSegment.from_wav(os.path.join(self.samples_path, f'{base_clip}.{extenstion}'))
         
-        clip = self.mp3_to_wav(clip)
+        # clip = self.mp3_to_wav(clip)
+        clip = self.normalize_frequency(clip)
+        clip = self.stereo_to_mono(clip)
+        clip = self.normalize_volume(clip, base_clip)
+        return clip
+
+    def normalize(self, clip:AudioSegment, base_clip:AudioSegment):
         clip = self.normalize_frequency(clip)
         clip = self.stereo_to_mono(clip)
         clip = self.normalize_volume(clip, base_clip)
