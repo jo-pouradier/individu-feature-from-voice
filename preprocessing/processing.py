@@ -141,7 +141,8 @@ class PreprocessingPydub:
     def __init__(self, samples_path:str, processed_path:str):
         self.samples_path = samples_path # Path to folder with audio files
         self.processed_path = processed_path # Path to folder to save processed audio files
-        
+        self.rate = 44100 
+
     def get_audio_files(self, path, extension:str = ".mp3"):
         """
         Get all the audio files in the given path
@@ -166,7 +167,7 @@ class PreprocessingPydub:
         return clip
     
     def normalize_frequency(self, clip: AudioSegment) -> AudioSegment:
-        clip = clip.set_frame_rate(44100)
+        clip = clip.set_frame_rate(self.rate)
         return clip
 
     def stereo_to_mono(self, clip: AudioSegment | str) -> AudioSegment:

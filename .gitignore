@@ -1,2 +1,4 @@
 fr/
 .venv/
+*.wav
+*.pyc
