@@ -3,3 +3,6 @@ numpy
 matplotlib
 librosa
 scipy
+pandas
+scikit-learn
+IPython
