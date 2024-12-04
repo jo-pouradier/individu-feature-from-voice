@@ -81,6 +81,7 @@ def preprocess_audio(path, base_path, samples_path, processed_path):
     audio_processed = process.change_duration(audio_processed, 10)
     # audio_processed.export(new_path, format='wav')
     spectro = process.mel_spectrogram_pydub(audio_processed)
+    spectro = (spectro/np.max(np.abs(spectro)) * 127).astype(np.int8)
     np.save(new_path.replace("wav", "npy"), spectro)
     # audio_processed = process.spectral_substraction_pydub(audio_processed)
     # export np array to wav
