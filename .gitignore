@@ -4,3 +4,4 @@ fr/
 *.mp3
 *.wav
 *.pyc
+/logs/
