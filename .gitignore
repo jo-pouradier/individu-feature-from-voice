@@ -5,3 +5,7 @@ fr/
 *.wav
 *.pyc
 /logs/
+processed
+model_0.h5
+model_0.keras
+model_01.keras
