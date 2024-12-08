@@ -95,6 +95,7 @@ def preprocess_audio(path, base_path, samples_path, processed_path):
     # audio.export(new_path, format='wav')
 
 
+
 base_path = r"D:\datasets\cv-corpus-19.0-2024-09-13-fr\cv-corpus-19.0-2024-09-13\fr"
 if __name__ == "__main__":
     # load the csv file
