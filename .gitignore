@@ -4,3 +4,7 @@ fr/
 *.mp3
 *.wav
 *.pyc
+processed
+model_0.keras
+model_0.h5
+model_01.keras
